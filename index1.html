@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <!-- Navigation Tabs (Client Portal removed, public service navigation retained) -->
+        <!-- Navigation Tabs -->
         <nav class="hidden md:flex items-center space-x-1 bg-neutral-950/80 p-1.5 rounded-xl border border-neutral-800">
             <button onclick="switchTab('catalog')" id="nav-catalog" class="px-4 py-2 rounded-lg text-xs font-semibold text-neutral-100 bg-orange-500 transition shadow-sm">Services & Pricing</button>
             <button onclick="switchTab('calculator')" id="nav-calculator" class="px-4 py-2 rounded-lg text-xs font-semibold text-neutral-400 hover:text-white transition">Quote Calculator</button>
@@ -176,7 +176,7 @@
                     </div>
                 </div>
 
-                <!-- Service 5: Roadside Security & Assistance (NEWLY ADDED) -->
+                <!-- Service 5: Roadside Security & Assistance -->
                 <div data-category="specialized" class="glass-panel rounded-2xl p-6 flex flex-col justify-between border-orange-500/40 glow-orange group">
                     <div>
                         <div class="w-12 h-12 rounded-xl bg-orange-500/20 border border-orange-500/40 flex items-center justify-center text-orange-400 text-xl font-bold mb-4 group-hover:scale-110 transition">🚗</div>
@@ -322,7 +322,7 @@
             </div>
         </div>
 
-        <!-- TAB 3: DISPATCH & QUOTE SUBMISSION FORM -->
+        <!-- TAB 3: DISPATCH & QUOTE SUBMISSION FORM (Connected to Web3Forms) -->
         <div id="tab-dispatch" class="space-y-6 hidden">
             <div class="text-center max-w-2xl mx-auto py-4">
                 <span class="text-xs font-bold uppercase tracking-widest text-orange-500 bg-orange-500/10 px-3 py-1 rounded-full border border-orange-500/20">24/7 Command Operations</span>
@@ -331,26 +331,34 @@
             </div>
 
             <div class="max-w-3xl mx-auto glass-panel rounded-2xl p-6 md:p-8">
-                <form id="dispatchForm" onsubmit="handleQuoteSubmission(event)" class="space-y-6">
+                <!-- FORM UPDATED WITH WEB3FORMS ACTION & ACCESS KEY -->
+                <form action="https://api.web3forms.com/submit" method="POST" id="dispatchForm" onsubmit="handleQuoteSubmission(event)" class="space-y-6">
+                    
+                    <!-- Replace YOUR_UNIQUE_ACCESS_KEY_HERE with your free key from web3forms.com -->
+                    <input type="hidden" name="access_key" value="YOUR_UNIQUE_ACCESS_KEY_HERE">
+                    
+                    <!-- Optional subject line for incoming emails -->
+                    <input type="hidden" name="subject" value="New LSF Security Quote Request Received!">
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-300 mb-2">Full Name / Organization *</label>
-                            <input type="text" id="formName" required placeholder="e.g. Robert Sterling" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition">
+                            <input type="text" name="name" id="formName" required placeholder="e.g. Robert Sterling" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-300 mb-2">Phone Number *</label>
-                            <input type="tel" id="formPhone" required placeholder="(352) 555-0199" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition">
+                            <input type="tel" name="phone" id="formPhone" required placeholder="(352) 555-0199" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-300 mb-2">Email Address *</label>
-                            <input type="email" id="formEmail" required placeholder="robert@company.com" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition">
+                            <input type="email" name="email" id="formEmail" required placeholder="robert@company.com" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-300 mb-2">Required Service Division</label>
-                            <select id="formService" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition">
+                            <select name="service_division" id="formService" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition">
                                 <option>Armed Security Officers</option>
                                 <option>Unarmed Security Guard Services</option>
                                 <option>Personal Protection Services</option>
@@ -363,12 +371,12 @@
 
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-300 mb-2">Service Location / City in Florida *</label>
-                        <input type="text" id="formLocation" required placeholder="e.g. Orlando, FL / Ocala, FL / Miami" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition">
+                        <input type="text" name="location" id="formLocation" required placeholder="e.g. Orlando, FL / Ocala, FL / Miami" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition">
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-300 mb-2">Project Scope & Message *</label>
-                        <textarea id="formMessage" rows="4" required placeholder="Provide details regarding your security requirements, dates, and number of officers needed..." class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition"></textarea>
+                        <textarea name="message" id="formMessage" rows="4" required placeholder="Provide details regarding your security requirements, dates, and number of officers needed..." class="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-orange-500 transition"></textarea>
                     </div>
 
                     <div class="flex items-center justify-between pt-4 border-t border-neutral-800">
@@ -515,7 +523,7 @@
             "Unarmed Security Guard Services": 32,
             "Personal Protection": 65,
             "Event Staffing": 35,
-            "Roadside Security & Assistance": 40, // plus $75 flat dispatch fee
+            "Roadside Security & Assistance": 40, 
             "Fire Watch Services": 30
         };
 
@@ -542,7 +550,6 @@
             const baseRate = hourlyRates[service] || 35;
             let subtotal = baseRate * units * hours * durationDays * discount;
 
-            // Add flat $75 dispatch fee for roadside security if selected
             if (service.includes("Roadside")) {
                 subtotal += (75 * units);
             }
@@ -561,18 +568,12 @@
             showToast("Estimate Transferred", "Please complete your contact details below to submit your quote request.");
         }
 
-        // Quote Submission Handler
+        // Quote Submission Handler (Allows Web3Forms to submit naturally while showing audio feedback)
         function handleQuoteSubmission(e) {
-            e.preventDefault();
             playBeep("G5");
             const name = document.getElementById('formName').value;
-            const service = document.getElementById('formService').value;
-            
-            // Show Success Alert / Toast
-            showToast("Quote Request Submitted! 🎉", `Thank you, ${name}. Our LSF command team received your request for ${service} and will contact you within 15 minutes.`);
-            
-            // Reset form
-            document.getElementById('dispatchForm').reset();
+            showToast("Submitting Quote...", `Thank you, ${name}. Sending your request to LSF Command...`);
+            // Note: The form will submit naturally to Web3Forms because e.preventDefault() is removed.
         }
 
         // Emergency Modal
